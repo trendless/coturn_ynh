@@ -32,11 +32,13 @@ ram.runtime = "50M"
 
 [resources]
     [resources.ports]
+    turnserver.default = 3478
+    turnserver.exposed = "Both"
     turnserver_tls.default = 5349
-    turnserver_tls.exposed = "Both"
-    turnserver_alt_tls.default = 5350
-    turnserver_alt_tls.exposed = "Both"
+    turnserver_tls.exposed = "TCP"
     cli.default = 5766
+    transit.default = "60100:60199"
+    transit.exposed = "UDP"
 
     [resources.system_user]
 
