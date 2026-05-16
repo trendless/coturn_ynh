@@ -5,7 +5,6 @@ source /usr/share/yunohost/helpers
 #=================================================
 # STORE SETTINGS FROM MANIFEST
 #=================================================
-
 ynh_app_setting_set --key=no_sso --value=true
 
 #=================================================
@@ -51,22 +50,11 @@ ynh_app_setting_set --key=turnserver_pwd --value=$turnserver_pwd
 
 ynh_config_add --template="turnserver.conf" --destination="/etc/turnserver.conf"
 
-# Get public IP and set as external IP for coturn
-# note: '|| true' is used to ignore the errors if we can't get the public ipv4 or ipv6
-public_ip4="$(curl -s https://ip.yunohost.org/)" || true
-public_ip6="$(curl -s https://ip6.yunohost.org/)" || true
-
-if ( [[ -n "$public_ip4" ]] && ynh_validate_ip --family=4 --ip_address="$public_ip4" || [[ -n "$public_ip6" ]] && ynh_validate_ip --family=6 --ip_address="$public_ip6" )
-then
-    echo "external-ip=${public_ip4}/${public_ip6}" >> "/etc/turnserver.conf"
-fi
-
 ynh_store_file_checksum "/etc/turnserver.conf"
 
 #=================================================
 # ADD SCRIPT FOR COTURN CRON
 #=================================================
-
 # For any update do it in all files
 cp -f ../sources/Coturn_config_rotate.sh $data_dir/
 ynh_replace --match="__APP__" --replace=$app --file=$data_dir/Coturn_config_rotate.sh
@@ -76,7 +64,6 @@ chmod +x $data_dir/Coturn_config_rotate.sh
 #=================================================
 # SET COTURN CRON
 #=================================================
-
 ynh_config_add --template="cron_coturn" --destination="/etc/cron.d/$app"
 
 #=================================================
@@ -89,7 +76,6 @@ ynh_config_add_logrotate
 #=================================================
 # SECURE FILES AND DIRECTORIES
 #=================================================
-
 # Set permissions to app files
 chown root: -R $data_dir
 chown turnserver:root /etc/turnserver.conf

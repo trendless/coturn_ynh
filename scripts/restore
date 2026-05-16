@@ -19,7 +19,6 @@ ynh_restore "$data_dir"
 #=================================================
 # RESTORE VARIOUS FILES
 #=================================================
-
 ynh_restore "/var/log/$app"
 
 ynh_restore "/etc/cron.d/$app"
@@ -48,7 +47,6 @@ fi
 #=================================================
 # RESTORE USER RIGHTS
 #=================================================
-
 # Restore permissions on app files
 # Set permissions to app files
 chown root: -R $data_dir
