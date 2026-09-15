@@ -39,7 +39,7 @@ ram.runtime = "50M"
     turnserver_alt_tls.default = 5350
     turnserver_alt_tls.exposed = "Both"
     cli.default = 5766
-    transit.default = "60100:60199"
+    transit.default = "60100:60599"
     transit.exposed = "UDP"
 
     [resources.system_user]
